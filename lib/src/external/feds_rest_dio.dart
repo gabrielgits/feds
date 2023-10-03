@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 import '../infra/feds_rest.dart';
 
-class FedsLocalDio implements FedsRest {
+class FedsRestDio implements FedsRest {
   final Dio http = Dio();
   
   Map<String, String> httpHeadersPost = {
