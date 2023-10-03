@@ -8,8 +8,8 @@ Future<void> main() async {
   final item = {'id': 1, 'name': 'Jhon', 'age': 20};
   int id = await datasourse.save(table: 'test', item: item);
   if (id <= 0) {
-    print('Data not saved');
+    debugPrint('Data not saved');
   }
   final data = await datasourse.getItem(id: id, table: 'test');
-  print(data);
+  debugPrint(data.toString());
 }
