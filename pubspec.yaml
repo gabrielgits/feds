@@ -1,8 +1,7 @@
 name: feds
 description: Flutter External Datasource.
-
 version: 0.1.2
-homepage:
+homepage: https://github.com/gabrielgits/feds.git
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
@@ -11,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   dio: ^5.3.3
   shared_preferences: ^2.2.1
 
