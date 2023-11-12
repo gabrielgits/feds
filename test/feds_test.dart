@@ -1,5 +1,5 @@
 import 'package:feds/src/external/feds_local_shared_pref.dart';
-import 'package:feds/src/infra/feds_local.dart';
+import 'package:feds/src/feds_local.dart';
 import 'package:flutter/widgets.dart';
 
 Future<void> main() async {

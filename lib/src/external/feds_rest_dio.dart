@@ -2,11 +2,11 @@
 
 import 'package:dio/dio.dart';
 
-import '../infra/feds_rest.dart';
+import '../feds_rest.dart';
 
 class FedsRestDio implements FedsRest {
   final Dio http = Dio();
-  
+
   Map<String, String> httpHeadersPost = {
     //HttpHeaders.contentTypeHeader: "application/json",
     "Connection": "Keep-Alive",

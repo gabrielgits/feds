@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../infra/feds_local.dart';
+import '../feds_local.dart';
 
 class FedsLocalSharedPref implements FedsLocal {
-
   @override
   Future<int> save({
     required Map<String, dynamic> item,
