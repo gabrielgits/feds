@@ -21,7 +21,7 @@ implementation:
 
 ## Getting started
 
-2. To use this package, add inani as dependency in your `pubspec.yaml` file:
+2. To use this package, add feds as dependency in your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
