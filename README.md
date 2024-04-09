@@ -9,12 +9,10 @@ Feds - Flutter External Datasource: Flutter Package to work with external data s
 ## Features
 
 interfaces:
-- feds_cloud
 - feds_local
 - feds_rest
 
 implementation:
-- firabase
 - shared_pref
 - dio
 

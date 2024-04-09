@@ -17,6 +17,12 @@ class _MyAppState extends State<MyApp> {
   String text = 'Press the button';
 
   Future<void> saveData() async {
+    FedsRest vartest = FedsRestHttp();
+
+    vartest.post('url', {'body': 'body'});
+    vartest.get('url');
+    vartest.getData('url');
+
     FedsLocal datasourse = FedsLocalSharedPref();
     final item = {'id': 1, 'name': 'Jhon', 'age': 20};
     int id = await datasourse.save(table: 'test', item: item);
