@@ -1,4 +1,6 @@
 abstract class FedsLocal {
+  ///Save an item in a table
+  /// - Return the id of the item if the item was saved, 0 otherwise
   Future<int> save({
     required Map<String, dynamic> item,
     required String table,

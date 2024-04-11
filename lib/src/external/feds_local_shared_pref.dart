@@ -11,7 +11,12 @@ class FedsLocalSharedPref implements FedsLocal {
   }) async {
     final encodedItem = jsonEncode(item);
     final prefs = await SharedPreferences.getInstance();
-    return await prefs.setString(table, encodedItem) ? item['id'] : 0;
+    if (!prefs.containsKey(table)) {
+      return await prefs.setStringList(table, [encodedItem]) ? item['id'] : 0;
+    }
+    final encodedListGet = prefs.getStringList(table);
+    encodedListGet!.add(encodedItem);
+    return await prefs.setStringList(table, encodedListGet) ? item['id'] : 0;
   }
 
   @override
@@ -77,10 +82,20 @@ class FedsLocalSharedPref implements FedsLocal {
 
   @override
   Future<Map<String, dynamic>> search(
-      {required String table, required String criteria}) {
-    // TODO: implement searchItem
-    throw UnimplementedError();
-  }
+      {required String table, required String criteria}) async {
+        const item = null;
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        final List<String>? items = prefs.getStringList(table);
+        if (items != null) {
+          for (int i = 0; i < items.length; i++) {
+            final item = jsonDecode(items[i]);
+            if (item[criteria] == criteria) {
+              return item;
+            }
+          }        
+        }
+        return item;
+        }
 
   @override
   Future<List<Map<String, dynamic>>> searchAll(
