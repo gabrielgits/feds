@@ -66,7 +66,7 @@ class FedsLocalSqflite implements FedsLocal {
   Future<int> searchUpdate(
       {required String table,
       required String criteria,
-      required Map<String, dynamic> item}) {
+      required Map<String, dynamic> updateItem}) {
     // TODO: implement searchUpdate
     throw UnimplementedError();
   }
