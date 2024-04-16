@@ -5,28 +5,48 @@ abstract class FedsLocal {
     required Map<String, dynamic> item,
     required String table,
   });
+  ///Save all items in a table
+  /// - Return the number of items saved, 0 if there was an error
   Future<int> saveAll({
     required List<Map<String, dynamic>> items,
     required String table,
   });
+  ///Get all items in a table
+  /// - Return a list of all items in the table
   Future<List<Map<String, dynamic>>> getAll(String table);
+  ///Get an item in a table
+  /// - Return the item if found, an empty map otherwise
   Future<Map<String, dynamic>> getItem({required int id, required String table});
+  ///Search all items with especific criteria in a table
+  /// - Return a list of all items with the criteria, an empty list otherwise
   Future<List<Map<String, dynamic>>> searchAll({
     required String table,
     required String criteria,
   });
+  ///Search an item with especific criteria in a table
+  /// - Return the item if found, an empty map otherwise
   Future<Map<String, dynamic>> search(
       {required String table, required String criteria});
+  ///Update an item in a table
+  /// - Return 1 if the item was updated, 0 otherwise
   Future<int> searchUpdate({
     required String table,
     required String criteria,
     required Map<String, dynamic> updateItem,
   });
+  ///Delete an item in a table
+  /// - Return the id of the item if the item was deleted, 0 otherwise
   Future<int> searchDelete(String table, String criteria);
+  ///Update an item in a table
+  /// - Return the id of the item if the item was updated, 0 otherwise
   Future<int> update({
     required Map<String, dynamic> item,
     required String table,
   });
+  ///Delete an item in a table
+  /// - Return the id of the item if the item was deleted, 0 otherwise
   Future<int> delete({required int id, required String table});
+  ///Delete all items in a table
+  /// - Return 1 if the items were deleted, 0 otherwise
   Future<int> deleteAll(String table);
 }
