@@ -1,4 +1,6 @@
 abstract class FedsLocal {
+  ///Save an item in a table
+  /// - Return the id of the item if the item was saved, 0 otherwise
   Future<int> save({
     required Map<String, dynamic> item,
     required String table,
@@ -12,14 +14,13 @@ abstract class FedsLocal {
   Future<List<Map<String, dynamic>>> searchAll({
     required String table,
     required String criteria,
-    List<Object?>? criteriaListData,
   });
   Future<Map<String, dynamic>> search(
       {required String table, required String criteria});
   Future<int> searchUpdate({
     required String table,
     required String criteria,
-    required Map<String, dynamic> item,
+    required Map<String, dynamic> updateItem,
   });
   Future<int> searchDelete(String table, String criteria);
   Future<int> update({
