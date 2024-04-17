@@ -46,16 +46,16 @@ class FedsLocalSharedPref implements FedsLocal {
     required int id,
     required String table,
   }) async {
-    Map <String, dynamic> item = {};
+    Map<String, dynamic> item = {};
     final prefs = await SharedPreferences.getInstance();
     final List<String>? items = prefs.getStringList(table);
     if (items == null) return item;
-    for (var element in items!) {
+    for (var element in items) {
       final itemDecoded = jsonDecode(element);
-        if (itemDecoded['id'] == id) {
-           item = itemDecoded;
-        }
-     }
+      if (itemDecoded['id'] == id) {
+        item = itemDecoded;
+      }
+    }
     return item;
   }
 
@@ -82,10 +82,7 @@ class FedsLocalSharedPref implements FedsLocal {
   }
 
   @override
-  Future<int> searchDelete(
-    String table, 
-    String criteria
-  ) async {
+  Future<int> searchDelete(String table, String criteria) async {
     final criteriaArray = criteria.split(':');
     final prefs = await SharedPreferences.getInstance();
     final List<String>? items = prefs.getStringList(table);
@@ -99,45 +96,41 @@ class FedsLocalSharedPref implements FedsLocal {
       }
     }
     return 0;
-    
   }
 
   @override
   Future<Map<String, dynamic>> search(
-      {required String table, 
-      required String criteria
-      }) async {
+      {required String table, required String criteria}) async {
     final criteriaArray = criteria.split(':');
     final prefs = await SharedPreferences.getInstance();
     final List<String>? items = prefs.getStringList(table);
     if (items != null) {
       for (int i = 0; i < items.length; i++) {
-         final itemDecod = jsonDecode(items[i]);
+        final itemDecod = jsonDecode(items[i]);
         if (itemDecod[criteriaArray[0]] == criteriaArray[1]) {
           return itemDecod;
         }
       }
     }
     return {};
-    
   }
 
   @override
-  Future<List<Map<String, dynamic>>> searchAll(
-      {required String table,
-      required String criteria,
-      }) async {
-        final criteriaArray = criteria.split(':');
-        final prefs = await SharedPreferences.getInstance();
-        final List<String>? items = prefs.getStringList(table);
-        final List<Map<String, dynamic>> itemList = [];
-        if (items != null) {
-          for (int i = 0; i < items.length; i++) {
-            final itemDecod = jsonDecode(items[i]);
-            if (itemDecod[criteriaArray[0]] == criteriaArray[1]) {
-              itemList.add(itemDecod);
-            }
-          }
+  Future<List<Map<String, dynamic>>> searchAll({
+    required String table,
+    required String criteria,
+  }) async {
+    final criteriaArray = criteria.split(':');
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? items = prefs.getStringList(table);
+    final List<Map<String, dynamic>> itemList = [];
+    if (items != null) {
+      for (int i = 0; i < items.length; i++) {
+        final itemDecod = jsonDecode(items[i]);
+        if (itemDecod[criteriaArray[0]] == criteriaArray[1]) {
+          itemList.add(itemDecod);
+        }
+      }
     }
     return itemList;
   }
@@ -146,14 +139,13 @@ class FedsLocalSharedPref implements FedsLocal {
   Future<int> searchUpdate(
       {required String table,
       required String criteria,
-      required Map<String, dynamic> updateItem
-      }) async {
-      final criteriaArray = criteria.split(':');
+      required Map<String, dynamic> updateItem}) async {
+    final criteriaArray = criteria.split(':');
     final prefs = await SharedPreferences.getInstance();
     final List<String>? items = prefs.getStringList(table);
     if (items != null) {
       for (int i = 0; i < items.length; i++) {
-         final itemDecod = jsonDecode(items[i]);
+        final itemDecod = jsonDecode(items[i]);
         if (itemDecod[criteriaArray[0]] == criteriaArray[1]) {
           items[i] = jsonEncode(updateItem);
         }
@@ -164,9 +156,7 @@ class FedsLocalSharedPref implements FedsLocal {
 
   @override
   Future<int> update(
-      {required Map<String, dynamic> item, 
-      required String table
-       }) async {
+      {required Map<String, dynamic> item, required String table}) async {
     final encodedItem = jsonEncode(item);
     final prefs = await SharedPreferences.getInstance();
     return await prefs.setString(table, encodedItem) ? item['id'] : 0;
