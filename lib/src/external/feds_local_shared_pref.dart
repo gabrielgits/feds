@@ -161,4 +161,13 @@ class FedsLocalSharedPref implements FedsLocal {
     final prefs = await SharedPreferences.getInstance();
     return await prefs.setString(table, encodedItem) ? item['id'] : 0;
   }
+
+  @override
+  Future<List<Map<String, dynamic>>> searchAllRaw({
+    required String sql,
+    List<Object?>? criteriaListData,
+  }) {
+    // TODO: implement searchAllRaw
+    throw UnimplementedError();
+  }
 }
