@@ -18,7 +18,7 @@ class FedsLocalSqflite implements FedsLocal {
 
     bool fileCreated = await File(dbPathLocation).exists();
     if (!fileCreated) {
-      ByteData data = await rootBundle.load("assets/database/dbsfb.db");
+      ByteData data = await rootBundle.load(dbPath);
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(dbPathLocation).writeAsBytes(bytes);
