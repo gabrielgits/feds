@@ -1,36 +1,38 @@
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../feds_local.dart';
 
 class FedsLocalSqflite implements FedsLocal {
-  static Database? database;
+  static Database? _database;
   final String dbPath;
+  final String dbName;
 
-  const FedsLocalSqflite({required this.dbPath});
+  const FedsLocalSqflite({required this.dbPath, required this.dbName});
 
-  Future<Database?> initDatabase(String dbPathLocation) async {
-    if (database != null) {
-      return database;
+  Future<Database?> _initDatabase() async {
+    if (_database != null) {
+      return _database;
     }
-
-    bool fileCreated = await File(dbPathLocation).exists();
+    final deviceDbPath = await getDatabasesPath();
+    final deviceDb = '$deviceDbPath/$dbName';
+    bool fileCreated = await File(deviceDb).exists();
     if (!fileCreated) {
-      ByteData data = await rootBundle.load(dbPath);
+      ByteData data = await rootBundle.load('$dbPath$dbName');
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      await File(dbPathLocation).writeAsBytes(bytes);
+      await File(deviceDb).writeAsBytes(bytes);
     }
-    database = await openDatabase(dbPathLocation);
-    return database;
+    _database = await openDatabase(deviceDb);
+    return _database;
   }
 
   @override
   Future<int> delete({required int id, required String table}) async {
-    if (database != null &&
-        await database!.delete(table, where: 'id = ?', whereArgs: [id]) > 0) {
+    _database = await _initDatabase();
+    if (_database != null &&
+        await _database!.delete(table, where: 'id = ?', whereArgs: [id]) > 0) {
       return id;
     }
     return 0;
@@ -38,8 +40,9 @@ class FedsLocalSqflite implements FedsLocal {
 
   @override
   Future<int> deleteAll(String table) async {
-    if (database != null) {
-      await database!.execute('DELETE FROM $table');
+    _database = await _initDatabase();
+    if (_database != null) {
+      await _database!.execute('DELETE FROM $table');
       return 1;
     }
     return 0;
@@ -47,8 +50,9 @@ class FedsLocalSqflite implements FedsLocal {
 
   @override
   Future<List<Map<String, dynamic>>> getAll(String table) async {
-    if (database != null) {
-      final list = await database!.query(table);
+    _database = await _initDatabase();
+    if (_database != null) {
+      final list = await _database!.query(table);
       if (list.isNotEmpty) {
         return list;
       }
@@ -59,9 +63,10 @@ class FedsLocalSqflite implements FedsLocal {
   @override
   Future<Map<String, dynamic>> getItem(
       {required int id, required String table}) async {
-    if (database != null) {
+    _database = await _initDatabase();
+    if (_database != null) {
       final list =
-          await database!.query(table, where: 'id = ?', whereArgs: [id]);
+          await _database!.query(table, where: 'id = ?', whereArgs: [id]);
       if (list.isNotEmpty) {
         return list[0];
       }
@@ -72,8 +77,9 @@ class FedsLocalSqflite implements FedsLocal {
   @override
   Future<int> save(
       {required Map<String, dynamic> item, required String table}) async {
-    if (database != null && await database!.insert(table, item) > 0) {
-      return item['id'];
+    _database = await _initDatabase();
+    if (_database != null) {
+      return await _database!.insert(table, item);
     }
     return 0;
   }
@@ -82,10 +88,11 @@ class FedsLocalSqflite implements FedsLocal {
   Future<int> saveAll(
       {required List<Map<String, dynamic>> items,
       required String table}) async {
+    _database = await _initDatabase();
     int quant = 0;
-    if (database != null) {
+    if (_database != null) {
       for (var element in items) {
-        final result = await database!.insert(table, element);
+        final result = await _database!.insert(table, element);
         if (result < 1) {
           return quant;
         }
@@ -98,8 +105,9 @@ class FedsLocalSqflite implements FedsLocal {
   @override
   Future<Map<String, dynamic>> search(
       {required String table, required String criteria}) async {
-    if (database != null) {
-      final list = await database!.query(table, where: criteria);
+    _database = await _initDatabase();
+    if (_database != null) {
+      final list = await _database!.query(table, where: criteria);
       if (list.isNotEmpty) {
         return list[0];
       }
@@ -112,8 +120,9 @@ class FedsLocalSqflite implements FedsLocal {
       {required String table,
       required String criteria,
       List<Object?>? criteriaListData}) async {
-    if (database != null) {
-      final list = await database!.query(
+    _database = await _initDatabase();
+    if (_database != null) {
+      final list = await _database!.query(
         table,
         where: criteria,
         whereArgs: criteriaListData,
@@ -127,8 +136,9 @@ class FedsLocalSqflite implements FedsLocal {
 
   @override
   Future<int> searchDelete(String table, String criteria) async {
-    if (database != null) {
-      return await database!.delete(table, where: criteria);
+    _database = await _initDatabase();
+    if (_database != null) {
+      return await _database!.delete(table, where: criteria);
     }
     return 0;
   }
@@ -138,8 +148,9 @@ class FedsLocalSqflite implements FedsLocal {
       {required String table,
       required String criteria,
       required Map<String, dynamic> updateItem}) async {
-    if (database != null) {
-      return await database!.update(table, updateItem, where: criteria);
+    _database = await _initDatabase();
+    if (_database != null) {
+      return await _database!.update(table, updateItem, where: criteria);
     }
     return 0;
   }
@@ -147,8 +158,9 @@ class FedsLocalSqflite implements FedsLocal {
   @override
   Future<int> update(
       {required Map<String, dynamic> item, required String table}) async {
-    if (database != null) {
-      return await database!.update(
+    _database = await _initDatabase();
+    if (_database != null) {
+      return await _database!.update(
         table,
         item,
         where: 'id = ?',
