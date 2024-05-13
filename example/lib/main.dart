@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> saveData() async {
     const tableName = 'users';
     FedsLocal datasourse =
-        const FedsLocalSqflite(dbPath: 'assets/', dbName: 'dbtest.db');
+        const FedsLocalSqfliteFfi(dbPath: 'assets/', dbName: 'dbtest.db');
     final item = {
       'name': 'Jhon',
       'email': 'jhon@example.com',
