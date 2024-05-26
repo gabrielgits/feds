@@ -24,4 +24,10 @@ class FedsRestHttp implements FedsRest {
     // TODO: implement put
     throw UnimplementedError();
   }
+
+  @override
+  Future<Map<String, dynamic>> delete(String url) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
 }

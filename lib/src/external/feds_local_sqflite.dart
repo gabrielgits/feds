@@ -136,8 +136,7 @@ class FedsLocalSqflite implements FedsLocal {
 
   @override
   Future<List<Map<String, dynamic>>> searchAllRaw(
-      {required String sql,
-      List<Object?>? criteriaListData}) async {
+      {required String sql, List<Object?>? criteriaListData}) async {
     _database = await _initDatabase();
     if (_database != null) {
       final list = await _database!.rawQuery(

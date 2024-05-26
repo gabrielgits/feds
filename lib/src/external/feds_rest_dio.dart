@@ -60,6 +60,17 @@ class FedsRestDio implements FedsRest {
   }
 
   @override
+  Future<Map<String, dynamic>> delete(String url) async {
+    http.options.responseType = ResponseType.json;
+    try {
+      var response = await http.delete(url);
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<List<int>> getData(String url) async {
     try {
       final response = await http.get(
