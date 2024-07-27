@@ -159,7 +159,20 @@ class FedsLocalSharedPref implements FedsLocal {
       {required Map<String, dynamic> item, required String table}) async {
     final encodedItem = jsonEncode(item);
     final prefs = await SharedPreferences.getInstance();
-    return await prefs.setString(table, encodedItem) ? item['id'] : 0;
+    if (!prefs.containsKey(table)) {
+      return 0;
+    }
+    final encodedListGet = prefs.getStringList(table);
+    for (int i = 0; i < encodedListGet!.length; i++) {
+      final itemDecoded = jsonDecode(encodedListGet[i]);
+      if (itemDecoded['id'] == item['id']) {
+        encodedListGet[i] = encodedItem;
+        return await prefs.setStringList(table, encodedListGet)
+            ? item['id']
+            : 0;
+      }
+    }
+    return 0;
   }
 
   @override

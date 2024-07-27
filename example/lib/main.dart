@@ -18,8 +18,12 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> saveData() async {
     const tableName = 'users';
+    // FedsLocal datasourse =
+    //   const FedsLocalSqfliteFfi(dbPath: 'assets/', dbName: 'dbtest.db');
+
     FedsLocal datasourse =
-        const FedsLocalSqfliteFfi(dbPath: 'assets/', dbName: 'dbtest.db');
+        const FedsLocalSqflite(dbPath: 'assets/', dbName: 'dbtest.db');
+
     final item = {
       'name': 'Jhon',
       'email': 'jhon@example.com',
@@ -31,7 +35,8 @@ class _MyAppState extends State<MyApp> {
         text = 'Data not saved';
       });
     }
-    final data = await datasourse.getItem(table: tableName, id: id);
+    final data = await datasourse.search(
+        table: tableName, criteria: 'email= "jhon@example.com"');
     setState(() {
       text = data.toString();
     });
