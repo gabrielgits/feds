@@ -34,10 +34,12 @@ class FedsRestDio implements FedsRest {
       String url, Map<String, dynamic> body) async {
     http.options.responseType = ResponseType.json;
     try {
-      var response = await http.post(url,
-          options: Options(headers: httpHeadersPost), queryParameters: body
-          // body: json.encode(body),
-          );
+      var response = await http.post(
+        url,
+        data: body,
+        options: Options(headers: httpHeadersPost),
+        // body: json.encode(body),
+      );
       return response.data;
     } catch (e) {
       rethrow;
@@ -49,10 +51,12 @@ class FedsRestDio implements FedsRest {
       String url, Map<String, dynamic> body) async {
     http.options.responseType = ResponseType.json;
     try {
-      var response = await http.put(url,
-          options: Options(headers: httpHeadersPost), queryParameters: body
-          // body: json.encode(body),
-          );
+      var response = await http.put(
+        url,
+        data: body,
+        options: Options(headers: httpHeadersPost),
+        // body: json.encode(body),
+      );
       return response.data;
     } catch (e) {
       rethrow;

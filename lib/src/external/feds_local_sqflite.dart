@@ -8,14 +8,19 @@ class FedsLocalSqflite implements FedsLocal {
   static Database? _database;
   final String dbPath;
   final String dbName;
+  final String? androidVersionPath;
 
-  const FedsLocalSqflite({required this.dbPath, required this.dbName});
+  const FedsLocalSqflite(
+      {required this.dbPath, required this.dbName, this.androidVersionPath});
 
   Future<Database?> _initDatabase() async {
     if (_database != null) {
       return _database;
     }
-    final deviceDbPath = await getDatabasesPath();
+    String deviceDbPath = await getDatabasesPath();
+    if (androidVersionPath != null) {
+      deviceDbPath = '/data/data/ao.cfb.sfbapp/files';
+    }
     final deviceDb = '$deviceDbPath/$dbName';
     bool fileCreated = await File(deviceDb).exists();
     if (!fileCreated) {
