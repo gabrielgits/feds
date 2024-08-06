@@ -20,7 +20,7 @@ abstract class FedsLocal {
   ///Get an item in a table
   /// - Return the item if found, an empty map otherwise
   Future<Map<String, dynamic>> getItem(
-      {required int id, required String table});
+      {required Object id, required String table});
 
   ///Search all items with especific criteria in a table
   /// - Return a list of all items with the criteria, an empty list otherwise
@@ -55,7 +55,7 @@ abstract class FedsLocal {
 
   ///Delete an item in a table
   /// - Return the id of the item if the item was deleted, 0 otherwise
-  Future<int> delete({required int id, required String table});
+  Future<Object> delete({required Object id, required String table});
 
   ///Delete all items in a table
   /// - Return 1 if the items were deleted, 0 otherwise

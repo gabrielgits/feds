@@ -43,7 +43,7 @@ class FedsLocalSharedPref implements FedsLocal {
 
   @override
   Future<Map<String, dynamic>> getItem({
-    required int id,
+    required Object id,
     required String table,
   }) async {
     Map<String, dynamic> item = {};
@@ -70,7 +70,7 @@ class FedsLocalSharedPref implements FedsLocal {
   }
 
   @override
-  Future<int> delete({required int id, required String table}) async {
+  Future<Object> delete({required Object id, required String table}) async {
     final prefs = await SharedPreferences.getInstance();
     return await prefs.remove(table) ? id : 0;
   }

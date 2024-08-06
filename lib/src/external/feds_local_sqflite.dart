@@ -34,7 +34,7 @@ class FedsLocalSqflite implements FedsLocal {
   }
 
   @override
-  Future<int> delete({required int id, required String table}) async {
+  Future<Object> delete({required Object id, required String table}) async {
     _database = await _initDatabase();
     if (_database != null &&
         await _database!.delete(table, where: 'id = ?', whereArgs: [id]) > 0) {
@@ -67,7 +67,7 @@ class FedsLocalSqflite implements FedsLocal {
 
   @override
   Future<Map<String, dynamic>> getItem(
-      {required int id, required String table}) async {
+      {required Object id, required String table}) async {
     _database = await _initDatabase();
     if (_database != null) {
       final list =
