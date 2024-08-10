@@ -1,7 +1,7 @@
 abstract class FedsLocal {
   ///Save an item in a table
   /// - Return the id of the item if the item was saved, 0 otherwise
-  Future<int> save({
+  Future<Object> save({
     required Map<String, dynamic> item,
     required String table,
   });
@@ -44,7 +44,7 @@ abstract class FedsLocal {
 
   ///Delete an item in a table
   /// - Return the id of the item if the item was deleted, 0 otherwise
-  Future<int> searchDelete(String table, String criteria);
+  Future<Object> searchDelete(String table, String criteria);
 
   ///Update an item in a table
   /// - Return the id of the item if the item was updated, 0 otherwise

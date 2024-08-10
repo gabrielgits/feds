@@ -5,7 +5,7 @@ import '../feds_local.dart';
 
 class FedsLocalSharedPref implements FedsLocal {
   @override
-  Future<int> save({
+  Future<Object> save({
     required Map<String, dynamic> item,
     required String table,
   }) async {
@@ -84,7 +84,7 @@ class FedsLocalSharedPref implements FedsLocal {
   }
 
   @override
-  Future<int> searchDelete(String table, String criteria) async {
+  Future<Object> searchDelete(String table, String criteria) async {
     final criteriaArray = criteria.split(':');
     final prefs = await SharedPreferences.getInstance();
     final List<String>? items = prefs.getStringList(table);

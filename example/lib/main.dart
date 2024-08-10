@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
       'email': 'jhon@example.com',
       'password': '1234'
     };
-    int id = await datasourse.save(table: tableName, item: item);
+    final id = (await datasourse.save(table: tableName, item: item)) as int;
     if (id <= 0) {
       setState(() {
         text = 'Data not saved';
