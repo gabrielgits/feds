@@ -12,11 +12,13 @@ class FedsLocalSharedPref implements FedsLocal {
     final encodedItem = jsonEncode(item);
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey(table)) {
-      return await prefs.setStringList(table, [encodedItem]) ? item['id'] : 0;
+      return await prefs.setStringList(table, [encodedItem]) ? 1 : 0;
     }
     final encodedListGet = prefs.getStringList(table);
     encodedListGet!.add(encodedItem);
-    return await prefs.setStringList(table, encodedListGet) ? item['id'] : 0;
+    return await prefs.setStringList(table, encodedListGet)
+        ? encodedListGet.length
+        : 0;
   }
 
   @override
