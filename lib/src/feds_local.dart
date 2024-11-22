@@ -1,3 +1,7 @@
+/// Abstract class FedsLocal
+/// This class is an abstract class that defines the interface for a local storage.
+library;
+
 abstract class FedsLocal {
   ///Save an item in a table
   /// - Return the id of the item if the item was saved, 0 otherwise
