@@ -5,7 +5,7 @@ import '../feds_local.dart';
 
 class FedsLocalSharedPref implements FedsLocal {
   @override
-  Future<Object> save({
+  Future<int> save({
     required Map<String, dynamic> item,
     required String table,
   }) async {
@@ -45,7 +45,7 @@ class FedsLocalSharedPref implements FedsLocal {
 
   @override
   Future<Map<String, dynamic>> getItem({
-    required Object id,
+    required int id,
     required String table,
   }) async {
     Map<String, dynamic> item = {};

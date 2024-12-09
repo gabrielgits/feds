@@ -5,7 +5,7 @@ library;
 abstract class FedsLocal {
   ///Save an item in a table
   /// - Return the id of the item if the item was saved, 0 otherwise
-  Future<Object> save({
+  Future<int> save({
     required Map<String, dynamic> item,
     required String table,
   });
@@ -24,7 +24,7 @@ abstract class FedsLocal {
   ///Get an item in a table
   /// - Return the item if found, an empty map otherwise
   Future<Map<String, dynamic>> getItem(
-      {required Object id, required String table});
+      {required int id, required String table});
 
   ///Search all items with especific criteria in a table
   /// - Return a list of all items with the criteria, an empty list otherwise
